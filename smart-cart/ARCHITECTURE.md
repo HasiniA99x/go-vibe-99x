@@ -5,7 +5,7 @@
 SmartCart is a modern e-commerce platform built with a three-tier architecture:
 - Frontend (React)
 - Backend (Node.js/Express)
-- Database (PostgreSQL)
+- Database (SQLite)
 
 ## 2. Architecture Diagram
 
@@ -25,7 +25,7 @@ graph TB
         Middleware[Middleware]
     end
 
-    subgraph Database [Database - PostgreSQL]
+    subgraph Database [Database - SQLite]
         Users[(Users)]
         Products[(Products)]
         Orders[(Orders)]
@@ -98,51 +98,51 @@ graph TB
 - Request Validation Middleware
 - Logging Middleware
 
-### 3.3 Database (PostgreSQL)
+### 3.3 Database (SQLite)
 
 #### Schema Design
 ```sql
 -- Users Table
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Products Table
 CREATE TABLE products (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
     description TEXT,
-    price DECIMAL(10,2) NOT NULL,
+    price REAL NOT NULL,
     stock INTEGER NOT NULL,
-    image_url VARCHAR(255),
+    image_url TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Orders Table
 CREATE TABLE orders (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES users(id),
-    total_amount DECIMAL(10,2) NOT NULL,
-    status VARCHAR(50) NOT NULL,
+    total_amount REAL NOT NULL,
+    status TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Order Items Table
 CREATE TABLE order_items (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     order_id INTEGER REFERENCES orders(id),
     product_id INTEGER REFERENCES products(id),
     quantity INTEGER NOT NULL,
-    price DECIMAL(10,2) NOT NULL
+    price REAL NOT NULL
 );
 
 -- Cart Items Table
 CREATE TABLE cart_items (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES users(id),
     product_id INTEGER REFERENCES products(id),
     quantity INTEGER NOT NULL,
