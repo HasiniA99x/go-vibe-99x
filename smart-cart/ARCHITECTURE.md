@@ -3,7 +3,7 @@
 ## 1. System Overview
 
 SmartCart is a modern e-commerce platform built with a three-tier architecture:
-- Frontend (Angular)
+- Frontend (React)
 - Backend (Node.js/Express)
 - Database (PostgreSQL)
 
@@ -11,7 +11,7 @@ SmartCart is a modern e-commerce platform built with a three-tier architecture:
 
 ```mermaid
 graph TB
-    subgraph Frontend [Frontend - Angular]
+    subgraph Frontend [Frontend - React]
         UI[User Interface]
         Components[Components]
         Services[Services]
@@ -44,7 +44,7 @@ graph TB
 
 ## 3. Component Details
 
-### 3.1 Frontend (Angular)
+### 3.1 Frontend (React)
 
 #### Core Components
 - **User Interface Layer**
@@ -63,7 +63,7 @@ graph TB
   - UserService
 
 #### State Management
-- **Angular Services**
+- **Redux/Context API**
   - Cart State
   - User State
   - Product State
@@ -184,7 +184,7 @@ sequenceDiagram
     Database->>Backend: User Data
     Backend->>Backend: Generate JWT
     Backend->>Frontend: JWT Token
-    Frontend->>Frontend: Store Token
+    Frontend->>Frontend: Store Token in LocalStorage/Redux
 ```
 
 ### 5.2 Authorization
